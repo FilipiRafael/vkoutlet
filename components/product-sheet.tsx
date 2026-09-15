@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { formatBRL } from "@/lib/site";
 import type { Product } from "@/lib/products";
 import {
@@ -19,7 +18,6 @@ type ProductSheetProps = {
 };
 
 export function ProductSheet({ product, onClose }: ProductSheetProps) {
-  const reduce = useReducedMotion();
   const [index, setIndex] = useState(0);
   const [touchX, setTouchX] = useState<number | null>(null);
 
@@ -72,33 +70,21 @@ export function ProductSheet({ product, onClose }: ProductSheetProps) {
     setTouchX(null);
   }
 
-  return (
-    <AnimatePresence>
-      {product && image ? (
-        <motion.div
-          className="fixed inset-0 z-50 flex items-end justify-center lg:items-center lg:p-8"
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.22 }}
-        >
-          <button
-            type="button"
-            aria-label="Fechar"
-            className="absolute inset-0 bg-ink/80 backdrop-blur-[2px]"
-            onClick={onClose}
-          />
+  return product && image ? (
+    <div className="sheet-root fixed inset-0 z-50 flex items-end justify-center lg:items-center lg:p-8">
+      <button
+        type="button"
+        aria-label="Fechar"
+        className="absolute inset-0 bg-ink/80 backdrop-blur-[2px]"
+        onClick={onClose}
+      />
 
-          <motion.div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="product-sheet-title"
-            className="relative z-10 flex max-h-[94dvh] w-full max-w-5xl flex-col overflow-hidden rounded-t-[1.75rem] bg-paper shadow-[0_24px_80px_rgba(20,20,20,0.28)] lg:h-[min(40rem,88dvh)] lg:max-h-[88dvh] lg:rounded-[1.75rem]"
-            initial={reduce ? false : { y: 56, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 36, opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="product-sheet-title"
+        className="sheet-panel relative z-10 flex max-h-[94dvh] w-full max-w-5xl flex-col overflow-hidden rounded-t-[1.75rem] bg-paper shadow-[0_24px_80px_rgba(20,20,20,0.28)] lg:h-[min(40rem,88dvh)] lg:max-h-[88dvh] lg:rounded-[1.75rem]"
+      >
             <div className="grid min-h-0 flex-1 lg:h-full lg:grid-cols-2">
               <div
                 className="relative isolate h-[34dvh] w-full shrink-0 overflow-hidden bg-ink lg:h-full"
@@ -211,9 +197,7 @@ export function ProductSheet({ product, onClose }: ProductSheetProps) {
                 </div>
               </div>
             </div>
-          </motion.div>
-        </motion.div>
-      ) : null}
-    </AnimatePresence>
-  );
-}
+          </div>
+        </div>
+      ) : null;
+    }
