@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f4f1eb;
+  --paper-2: #ebe6dc;
+  --ink: #141414;
+  --muted: #6d675f;
+  --line: #d9d2c7;
+  --vk: #e30613;
+  --vk-deep: #c10510;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-vk: var(--vk);
+  --color-vk-deep: var(--vk-deep);
+  --font-sans: var(--font-manrope);
+  --font-display: var(--font-syne);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--vk);
+  color: #fff;
+}
+
+.font-display {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+.hero-rise {
+  animation: hero-rise 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero-rise-d1 {
+  animation-delay: 80ms;
+}
+
+.hero-rise-d2 {
+  animation-delay: 160ms;
+}
+
+.hero-rise-d3 {
+  animation-delay: 280ms;
+}
+
+.hero-rise-d4 {
+  animation-delay: 400ms;
+}
+
+.hero-rise-d5 {
+  animation-delay: 520ms;
+}
+
+@keyframes hero-rise {
+  from {
+    transform: translate3d(0, 20px, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.marquee-track {
+  animation: marquee 36s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.img-fill {
+  transform: scale(1.03);
+}
+
+body[data-sheet="open"] .whatsapp-fab {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .hero-rise,
+  .marquee-track {
+    animation: none;
+  }
+}
